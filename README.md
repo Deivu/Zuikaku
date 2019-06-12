@@ -17,7 +17,7 @@ https://deivu.github.io/Zuikaku/?api
 ### Example Usage
 ```js
 const { Zuikaku } = require('zuikaku');
-const zuikaku = new Zuikaku('Your_Token');
+const zuikaku = new Zuikaku({ token: 'your_osu!_token' });
 async function start() {
   const user = await zuikaku.getUser({ u: 'Deivu', m: 0 });
   console.log(user[0]);

@@ -12,7 +12,7 @@ The ShipGirl Project. Zuikaku. `(c) Kancolle for Zuikaku`.
 <p><a href="https://deivu.github.io/Zuikaku/?api">https://deivu.github.io/Zuikaku/?api</a></p>
 <h3 id="example-usage">Example Usage</h3>
 <pre><code class="js">const { Zuikaku } = require('zuikaku');
-const zuikaku = new Zuikaku('Your_Token');
+const zuikaku = new Zuikaku({ token: 'your_osu!_token' });
 async function start() {
   const user = await zuikaku.getUser({ u: 'Deivu', m: 0 });
   console.log(user[0]);

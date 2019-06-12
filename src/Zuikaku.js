@@ -5,14 +5,13 @@ class Zuikaku {
     /**
      * ZuikakuOptions
      * @typedef {Object} ZuikakuOptions
-     * @memberof Zuikaku
      * @property {string} token API key from osu! api.
      * @property {number} [timeout=5000] Timeout before a request times out.
      */
 
     /**
      * Zuikaku, osu! API Wrappper
-     * @param {ZuikakuOptions} ZuikakuOptions ZuikakuOptions
+     * @param {ZuikakuOptions} ZuikakuOptions ZuikakuOptions thats needed by Zuikaku to initialize.
      */
     constructor(options) {
         if (!options.token)

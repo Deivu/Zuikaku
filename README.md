@@ -6,11 +6,17 @@ The ShipGirl Project. Zuikaku. `(c) Kancolle for Zuikaku`.
 
 ### A very lightweight wrapper around osu! api.
 
+### Installation
+```
+npm i zuikaku
+```
+
 ### Documentation
+https://deivu.github.io/Zuikaku/?api
 
 ### Example Usage
 ```js
-const { Zuikaku } = require('../index.js');
+const { Zuikaku } = require('zuikaku');
 const zuikaku = new Zuikaku('Your_Token');
 async function start() {
   const user = await zuikaku.getUser({ u: 'Deivu', m: 0 });

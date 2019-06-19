@@ -4,15 +4,15 @@
 <p align="center">
   <img src="https://vignette.wikia.nocookie.net/kancolle/images/8/84/Zuikaku_Christmas_Full_Damaged.png/revision/latest/" style="max-width: 100%;">
 </p>
-The ShipGirl Project. Zuikaku. `(c) Kancolle for Zuikaku`.
 
+<p>The ShipGirl Project. Zuikaku. <code>(c) Kancolle for Zuikaku</code>.</p>
 <h3 id="a-very-lightweight-wrapper-around-osu--api">A very lightweight wrapper around osu! api.</h3>
 <h3 id="installation">Installation</h3>
 <pre><code>npm i zuikaku</code></pre><h3 id="documentation">Documentation</h3>
 <p><a href="https://deivu.github.io/Zuikaku/?api">https://deivu.github.io/Zuikaku/?api</a></p>
 <h3 id="example-usage">Example Usage</h3>
 <pre><code class="js">const { Zuikaku } = require('zuikaku');
-const zuikaku = new Zuikaku({ token: 'your_osu!_token' });
+const zuikaku = new Zuikaku('your_osu!_token');
 async function start() {
   const user = await zuikaku.getUser({ u: 'Deivu', m: 0 });
   console.log(user[0]);

@@ -3,21 +3,15 @@ const Abort = require('abort-controller');
 
 class Zuikaku {
     /**
-     * ZuikakuOptions
-     * @typedef {Object} ZuikakuOptions
-     * @property {string} token API key from osu! api.
-     * @property {number} [timeout=5000] Timeout before a request times out.
-     */
-
-    /**
      * Zuikaku, osu! API Wrappper
-     * @param {ZuikakuOptions} ZuikakuOptions ZuikakuOptions thats needed by Zuikaku to initialize.
+     * @param {string} token Token that is needed by Zuikaku to query in osu! api
+     * @param {number} timeout Timeout before cancelling a request
      */
-    constructor(options) {
-        if (!options.token)
+    constructor(token, timeout) {
+        if (!token)
             throw new Error('Zuikaku_Error: Token not specified');
-        Object.defineProperty(this, 'token', { value: options.token });
-        Object.defineProperty(this, 'timeout', { value: options.timeout || 5000 });
+        Object.defineProperty(this, 'token', { value: token });
+        Object.defineProperty(this, 'timeout', { value: timeout || 5000 });
         Object.defineProperty(this, 'baseurl', { value: 'https://osu.ppy.sh/api' });
     }
 

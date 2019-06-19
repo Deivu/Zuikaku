@@ -2,6 +2,7 @@
 <p align="center">
   <img src="https://vignette.wikia.nocookie.net/kancolle/images/8/84/Zuikaku_Christmas_Full_Damaged.png/revision/latest/">
 </p>
+
 The ShipGirl Project. Zuikaku. `(c) Kancolle for Zuikaku`.
 
 ### A very lightweight wrapper around osu! api.
@@ -17,7 +18,7 @@ https://deivu.github.io/Zuikaku/?api
 ### Example Usage
 ```js
 const { Zuikaku } = require('zuikaku');
-const zuikaku = new Zuikaku({ token: 'your_osu!_token' });
+const zuikaku = new Zuikaku('your_osu!_token');
 async function start() {
   const user = await zuikaku.getUser({ u: 'Deivu', m: 0 });
   console.log(user[0]);

@@ -1,5 +1,6 @@
 const Fetch = require('node-fetch');
 const Abort = require('abort-controller');
+const { ZuikakuError, ZuikakuTimeout } = require('./ZuikakuErrors');
 
 class Zuikaku {
     /**
@@ -9,7 +10,7 @@ class Zuikaku {
      */
     constructor(token, timeout) {
         if (!token)
-            throw new Error('Zuikaku_Error: Token not specified');
+            throw new ZuikakuError('Token not specified');
         Object.defineProperty(this, 'token', { value: token });
         Object.defineProperty(this, 'timeout', { value: timeout || 5000 });
         Object.defineProperty(this, 'baseurl', { value: 'https://osu.ppy.sh/api' });
@@ -21,7 +22,7 @@ class Zuikaku {
      * @returns {Promise<Array>} A JSON list containing all beatmaps (one per difficulty) matching criteria.
      */
     getBeatmaps(parameters) {
-        if (!parameters) throw new Error('Zuikaku_Error: Parameters is not specified');
+        if (!parameters) throw new ZuikakuError('Parameters is not specified');
         return this._fetch('/get_beatmaps', parameters);
     }
 
@@ -31,7 +32,7 @@ class Zuikaku {
      * @returns {Promise<Array>} A JSON list containing user information.
      */
     getUser(parameters) {
-        if (!parameters) throw new Error('Zuikaku_Error: Parameters is not specified');
+        if (!parameters) throw new ZuikakuError('Parameters is not specified');
         return this._fetch('/get_user', parameters);
     }
 
@@ -41,7 +42,7 @@ class Zuikaku {
      * @returns {Promise<Array>} A JSON list containing the top 100 scores of the specified beatmap.
      */
     getScores(parameters) {
-        if (!parameters) throw new Error('Zuikaku_Error: Parameters is not specified');
+        if (!parameters) throw new ZuikakuError('Parameters is not specified');
         return this._fetch('/get_scores', parameters);
     }
 
@@ -51,7 +52,7 @@ class Zuikaku {
      * @returns {Promise<Array>} A JSON list containing the top 10 scores for the specified user.
      */
     getUserBest(parameters) {
-        if (!parameters) throw new Error('Zuikaku_Error: Parameters is not specified');
+        if (!parameters) throw new ZuikakuError('Parameters is not specified');
         return this._fetch('/get_user_best', parameters);
     }
 
@@ -61,7 +62,7 @@ class Zuikaku {
      * @returns {Promise<Array>} A JSON list containing the user's ten most recent songs played.
      */
     getUserRecent(parameters) {
-        if (!parameters) throw new Error('Zuikaku_Error: Parameters is not specified');
+        if (!parameters) throw new ZuikakuError('Parameters is not specified');
         return this._fetch('/get_user_recent', parameters);
     }
 
@@ -71,7 +72,7 @@ class Zuikaku {
      * @returns {Promise<JSON>} A JSON object containing match information, and player's result.
      */
     getMatch(parameters) {
-        if (!parameters) throw new Error('Zuikaku_Error: Parameters is not specified');
+        if (!parameters) throw new ZuikakuError('Parameters is not specified');
         return this._fetch('/get_match', parameters);
     }
 
@@ -81,7 +82,7 @@ class Zuikaku {
      * @returns {Promise<JSON>} A JSON object containing the key "content", which is a base64-encoded replay.
      */
     getReplay(parameters) {
-        if (!parameters) throw new Error('Zuikaku_Error: Parameters is not specified');
+        if (!parameters) throw new ZuikakuError('Parameters is not specified');
         return this._fetch('/get_replay', parameters);
     }
     /**
@@ -99,15 +100,15 @@ class Zuikaku {
         const timeout = setTimeout(() => controller.abort(), this.timeout);
         return Fetch(url.toString(), { signal: controller.signal })
             .then((response) => {
-                clearTimeout(timeout);
                 if (response.status !== 200)
-                    throw new Error(`Zuikaku_Error: Code ${response.status}`);
+                    throw new ZuikakuError(`Request Error, Code ${response.status}`);
                 return response.json();
-            }, (error) => {
-                clearTimeout(timeout);
-                error.name === 'AbortError' ? error = new Error('Zuikaku_Error: Request Timed Out') : error = new Error(`Zuikaku_Error: ${error}`);
+            })
+            .catch((error) => {
+                error.name === 'AbortError' ? error = new ZuikakuTimeout('Zuikaku_Error: Request Timed Out') : error = new ZuikakuError(error.message);
                 throw error;
-            });
+            })
+            .finally(() => clearTimeout(timeout));
     }
 }
 

@@ -1,6 +1,6 @@
 # Zuikaku
 <p align="center">
-  <img src="https://vignette.wikia.nocookie.net/kancolle/images/8/84/Zuikaku_Christmas_Full_Damaged.png/revision/latest/">
+  <img src="https://vignette.wikia.nocookie.net/kancolle/images/9/9b/Zuikaku_Kai_Ni_A_Full.png/revision/latest/">
 </p>
 
 The ShipGirl Project. Zuikaku. `(c) Kancolle for Zuikaku`.

@@ -1,6 +1,6 @@
 {
   "name": "zuikaku",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A very lightweight wrapper around osu! api.",
   "main": "index.js",
   "scripts": {

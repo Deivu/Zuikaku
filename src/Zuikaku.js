@@ -101,11 +101,11 @@ class Zuikaku {
         return Fetch(url.toString(), { signal: controller.signal })
             .then((response) => {
                 if (response.status !== 200)
-                    throw new ZuikakuError(`Request Error, Code ${response.status}`);
+                    throw new ZuikakuError(`Request error, code ${response.status}`);
                 return response.json();
             })
             .catch((error) => {
-                error.name === 'AbortError' ? error = new ZuikakuTimeout('Zuikaku_Error: Request Timed Out') : error = new ZuikakuError(error.message);
+                error.name === 'AbortError' ? error = new ZuikakuTimeout('Request timed out') : error = new ZuikakuError(error.message);
                 throw error;
             })
             .finally(() => clearTimeout(timeout));

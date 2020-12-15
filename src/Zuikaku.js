@@ -1,18 +1,21 @@
 const Fetch = require('node-fetch');
 const Abort = require('abort-controller');
+const { name, version } = require('../package.json');
 const { ZuikakuError, ZuikakuTimeout } = require('./ZuikakuErrors');
 
 class Zuikaku {
     /**
      * Zuikaku, osu! API Wrappper
      * @param {string} token Token that is needed by Zuikaku to query in osu! api
-     * @param {number} timeout Timeout before cancelling a request
+     * @param {?number} [timeout] Timeout before cancelling a request
+     * @param {?string} [userAgent] UserAgent to use on requests
      */
-    constructor(token, timeout) {
+    constructor(token, timeout, userAgent) {
         if (!token)
             throw new ZuikakuError('Token not specified');
         Object.defineProperty(this, 'token', { value: token });
         Object.defineProperty(this, 'timeout', { value: timeout || 5000 });
+        Object.defineProperty(this, 'userAgent', { value: userAgent || `${name}/${version} (+https://github.com/Deivu/Zuikaku)` });
         Object.defineProperty(this, 'baseurl', { value: 'https://osu.ppy.sh/api' });
     }
 
@@ -98,7 +101,7 @@ class Zuikaku {
         url.search = new URLSearchParams(options);
         const controller = new Abort();
         const timeout = setTimeout(() => controller.abort(), this.timeout);
-        return Fetch(url.toString(), { signal: controller.signal })
+        return Fetch(url.toString(), { headers: { 'User-Agent': this.userAgent }, signal: controller.signal })
             .then((response) => {
                 if (response.status !== 200)
                     throw new ZuikakuError(`Request error, code ${response.status}`);

@@ -1,21 +1,21 @@
 const Fetch = require('node-fetch');
 const Abort = require('abort-controller');
-const { name, version } = require('../package.json');
+const { name, version, repository } = require('../package.json');
 const { ZuikakuError, ZuikakuTimeout } = require('./ZuikakuErrors');
 
 class Zuikaku {
     /**
      * Zuikaku, osu! API Wrappper
      * @param {string} token Token that is needed by Zuikaku to query in osu! api
-     * @param {?number} [timeout] Timeout before cancelling a request
-     * @param {?string} [userAgent] UserAgent to use on requests
+     * @param {Object} options
+     * @param {?number} [options.timeout=5000] Timeout before cancelling a request
+     * @param {?string} [options.userAgent='{package}/{version} (+{link})'] UserAgent to use on requests
      */
-    constructor(token, timeout, userAgent) {
-        if (!token)
-            throw new ZuikakuError('Token not specified');
+    constructor(token, options = {}) {
+        if (!token) throw new ZuikakuError('Token not specified');
         Object.defineProperty(this, 'token', { value: token });
-        Object.defineProperty(this, 'timeout', { value: timeout || 5000 });
-        Object.defineProperty(this, 'userAgent', { value: userAgent || `${name}/${version} (+https://github.com/Deivu/Zuikaku)` });
+        Object.defineProperty(this, 'timeout', { value: options.timeout || 5000 });
+        Object.defineProperty(this, 'userAgent', { value: options.userAgent || `${name}/${version} (+${repository.url})` });
         Object.defineProperty(this, 'baseurl', { value: 'https://osu.ppy.sh/api' });
     }
 

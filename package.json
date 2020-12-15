@@ -1,6 +1,6 @@
 {
   "name": "zuikaku",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A very lightweight wrapper around osu! api.",
   "main": "index.js",
   "scripts": {
@@ -15,13 +15,15 @@
   ],
   "author": "Saya",
   "license": "MIT",
-  "repository": "https://github.com/Deivu/Zuikaku",
+  "repository": {
+    "url": "https://github.com/Deivu/Zuikaku"
+  },
   "bugs": {
     "url": "https://github.com/Deivu/Zuikaku/issues"
   },
   "homepage": "https://github.com/Deivu/Zuikaku/blob/master/README.md",
   "dependencies": {
     "abort-controller": "^3.0.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   }
 }
